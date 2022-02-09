@@ -8,6 +8,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+
 from .models import NewPost
 
 # A comment to push tested and worked
