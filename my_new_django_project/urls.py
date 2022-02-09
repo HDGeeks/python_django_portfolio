@@ -28,6 +28,7 @@ urlpatterns = [
     path('logout',auth_view.LogoutView.as_view(template_name='users_app/logout.html'),name='logout'),
     path('profile/',users_view.profile,name='profile'),
     path('blog/',include('blog.urls')),
+    path('passgen/',include('appPasswordGen.urls')),
     path('courses/',include('courses.urls')),
     path('admin/', admin.site.urls),
 ]

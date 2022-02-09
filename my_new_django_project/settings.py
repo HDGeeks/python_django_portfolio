@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'appPasswordGen.apps.GeneratorConfig',
     'users_app.apps.UsersAppConfig',
     'blog.apps.BlogConfig',
     'courses.apps.CoursesConfig',
