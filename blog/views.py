@@ -10,7 +10,8 @@ from django.views.generic import (
 )
 from .models import NewPost
 
-# A comment to push
+# A comment to push tested and worked
+
 def home(request):
     context = {
         'posts': NewPost.objects.all()
