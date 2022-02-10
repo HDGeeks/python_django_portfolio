@@ -29,6 +29,7 @@ urlpatterns = [
     path('profile/',users_view.profile,name='profile'),
     path('blog/',include('blog.urls')),
     path('passgen/',include('appPasswordGen.urls')),
+    path('ToDo/',include('appToDo_woo.urls')),
     path('courses/',include('courses.urls')),
     path('admin/', admin.site.urls),
 ]

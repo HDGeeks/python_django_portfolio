@@ -34,6 +34,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    
+    'apToDo_woo.apps.ApptodoWooConfig',
     'appPasswordGen.apps.ApppasswordgenConfig',
     'users_app.apps.UsersAppConfig',
     'blog.apps.BlogConfig',
