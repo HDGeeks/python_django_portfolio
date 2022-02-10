@@ -35,7 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     
-    'apToDo_woo.apps.ApptodoWooConfig',
+    'appToDo_woo.apps.ApptodoWooConfig',
     'appPasswordGen.apps.ApppasswordgenConfig',
     'users_app.apps.UsersAppConfig',
     'blog.apps.BlogConfig',
