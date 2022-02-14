@@ -10,5 +10,11 @@
 {{ details_form.as_p }}   
 <button class="btn btn-outline-info" type="submit"> Update </button> 
 </form>
+<br>
+<br>
+<form method="POST" action="{% url 'complete' to_complete.id %}">
+    {% csrf_token %}
+<button class="btn btn-outline-info" type="submit"> task completed </button> 
+</form>
 
 {%endblock content%}

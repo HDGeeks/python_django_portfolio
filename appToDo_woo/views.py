@@ -1,9 +1,12 @@
+from time import timezone
+from xmlrpc.client import NOT_WELLFORMED_ERROR
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
 from .models import create_new_form,Todo
+from django.utils import timezone
 
 # Create your views here.
 
@@ -24,7 +27,7 @@ def signUpUser(request):
                 # let the user now either the username or password is wrong
                 return render(request,'appToDo_woo/signUp.html',{'signUpForm':UserCreationForm(),'error':'password didnt match'})
 def home(request):
-    todo_lists=Todo.objects.filter(user=request.user)
+    todo_lists=Todo.objects.filter(user=request.user,datecompleted__isnull=True)
     return render(request,'appToDo_woo/home.html',{'todoLists':todo_lists})
 
 def logoutUser(request):
@@ -60,7 +63,7 @@ def new_todo(request):
 
 
 def todo_detail(request,pk_Todo):
-    to_detail=get_object_or_404(Todo,pk=pk_Todo)
+    to_detail=get_object_or_404(Todo,pk=pk_Todo,user=request.user)
     if request.method=='GET':
         detailForm=create_new_form(instance=to_detail)
         return render(request,'appToDo_woo/detail.html',{'deta':to_detail , 'details_form':detailForm})
@@ -71,6 +74,23 @@ def todo_detail(request,pk_Todo):
             return redirect('home')
         except ValueError:
               return render(request,'appToDo_woo/detail.html',{'deta':to_detail , 'details_form':detailForm ,'error':'bad data type or exceeded the length specified of a specific field .'})
+
+def completed(request,pk_Todo):
+     to_complete=get_object_or_404(Todo,pk=pk_Todo,user=request.user)
+     if request.method=='POST':
+        to_complete.datecompleted=timezone.now()
+        to_complete.save()
+        return redirect('home')
+     else:
+        detailForm=create_new_form(instance=to_complete)
+        return render(request,'appToDo_woo/detail.html',{'deta':to_complete , 'details_form':detailForm})
+
+
+
+
+
+
+
 
 
 
