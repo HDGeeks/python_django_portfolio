@@ -1,16 +1,31 @@
 {% extends 'appToDo_woo/todo_base.html'%}
-{% block content%}
 
-<h2>current todo's </h2>
-<ul>
-    {% for lists in todoLists %}
-    <li>
-        <a href="{%  url 'detail' lists.id %}">
-            {{lists.title}}
-        </a>
-    </li>
-    {% endfor %}
-   
-</ul>
 
-{%endblock content%}
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            {% if todoLists %}
+                 <h1>{{ todoLists.count }} Current Todo{{ todoLists.count|pluralize }}</h1>
+            {% else %}
+                           <h1>Current Todos</h1>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+        {% if todoLists %}
+            <div class="list-group">
+                {% for todo in todoLists %}
+                    <a href="{% url 'detail' todo.id %}" class="list-group-item list-group-item-action{% if todo.important %} list-group-item-danger{% endif %}"><b>{{ todo.title }}</b>{% if todo.memo %} - {{ todo.memo|truncatechars:30 }}{% endif %}</a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center">
+                <h2>Looks like you don't have any todos! Nice work.</h2>
+            <br>
+            <a role="button" class="btn btn-primary" href="{% url 'create_new' %}">New Todo</a>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

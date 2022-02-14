@@ -7,8 +7,12 @@ from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
 from .models import create_new_form,Todo
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+def start(request):
+    return render(request,'appToDo_woo/start.html')
 
 def signUpUser(request):
     if request.method=='GET':
@@ -26,14 +30,6 @@ def signUpUser(request):
             else:
                 # let the user now either the username or password is wrong
                 return render(request,'appToDo_woo/signUp.html',{'signUpForm':UserCreationForm(),'error':'password didnt match'})
-def home(request):
-    todo_lists=Todo.objects.filter(user=request.user,datecompleted__isnull=True)
-    return render(request,'appToDo_woo/home.html',{'todoLists':todo_lists})
-
-def logoutUser(request):
-    if request.method=='POST':
-        logout(request)
-        return redirect('home')
 
 def loginUser(request):
     if request.method=='GET':
@@ -46,6 +42,18 @@ def loginUser(request):
             login(request,user)
             return redirect('home')
 
+def logoutUser(request):
+    if request.method=='POST':
+        logout(request)
+        return redirect('home')            
+
+
+@login_required               
+def home(request):
+    todo_lists=Todo.objects.filter(user=request.user,datecompleted__isnull=True)
+    return render(request,'appToDo_woo/home.html',{'todoLists':todo_lists})
+
+@login_required 
 def new_todo(request):
     if request.method=='GET':
         return render(request,'appToDo_woo/create_new.html',{'create_new_form':create_new_form()})
@@ -61,7 +69,7 @@ def new_todo(request):
             return render(request,'appToDo_woo/create_new.html',{'create_new_form':create_new_form(),'error':'bad data type or exceeded the length specified of a specific field .'})
 
 
-
+@login_required 
 def todo_detail(request,pk_Todo):
     to_detail=get_object_or_404(Todo,pk=pk_Todo,user=request.user)
     if request.method=='GET':
@@ -75,6 +83,22 @@ def todo_detail(request,pk_Todo):
         except ValueError:
               return render(request,'appToDo_woo/detail.html',{'deta':to_detail , 'details_form':detailForm ,'error':'bad data type or exceeded the length specified of a specific field .'})
 
+@login_required 
+def delete_todo(request,pk_Todo):
+     to_delete=get_object_or_404(Todo,pk=pk_Todo,user=request.user)
+     if request.method=='POST':
+        to_delete.delete()
+        return redirect('home')
+     else:
+        detailForm=create_new_form(instance=to_delete)
+        return render(request,'appToDo_woo/detail.html',{'deta':to_delete , 'details_form':detailForm})
+
+@login_required
+def completed_task(request):
+    tsks_done = Todo.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
+    return render(request, 'todo/completedtodos.html', {'todos':tsks_done})        
+
+@login_required 
 def completed(request,pk_Todo):
      to_complete=get_object_or_404(Todo,pk=pk_Todo,user=request.user)
      if request.method=='POST':
@@ -83,7 +107,8 @@ def completed(request,pk_Todo):
         return redirect('home')
      else:
         detailForm=create_new_form(instance=to_complete)
-        return render(request,'appToDo_woo/detail.html',{'deta':to_complete , 'details_form':detailForm})
+        return render(request,'appToDo_woo/detail.html',{'deta':to_complete , 'details_form':detailForm})    
+
 
 
 

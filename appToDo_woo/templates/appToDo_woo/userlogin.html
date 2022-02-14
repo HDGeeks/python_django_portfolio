@@ -1,22 +1,33 @@
 {% extends 'appToDo_woo/todo_base.html'%}
-{% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join Today</legend>
-                {{ loginForm|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">LogIn</button>
-            </div>
-            <h2>{{error}}</h2>
-        </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                if you dont Have An Account? <a class="ml-2" href="{% url 'signUp' %}"> LogIn </a>
-            </small>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2>Login</h2>
         </div>
     </div>
-{% endblock content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" class="form-control" id="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" id="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <hr>
+            <div class="text-center">
+                Need an account? <a href="{% url 'signUp' %}">Sign Up here</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
