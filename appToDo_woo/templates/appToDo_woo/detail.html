@@ -1,0 +1,14 @@
+{% extends 'appToDo_woo/todo_base.html'%}
+<h2> to do wooo > </h2>
+
+{% block content%}
+
+{{deta.title}}
+
+<form method="POST">
+{% csrf_token %}
+{{ details_form.as_p }}   
+<button class="btn btn-outline-info" type="submit"> Update </button> 
+</form>
+
+{%endblock content%}

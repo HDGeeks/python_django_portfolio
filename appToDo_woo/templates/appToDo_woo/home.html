@@ -1,4 +1,16 @@
 {% extends 'appToDo_woo/todo_base.html'%}
 {% block content%}
-current todo's
+
+<h2>current todo's </h2>
+<ul>
+    {% for lists in todoLists %}
+    <li>
+        <a href="{%  url 'detail' lists.id %}">
+            {{lists.title}}
+        </a>
+    </li>
+    {% endfor %}
+   
+</ul>
+
 {%endblock content%}
