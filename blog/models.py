@@ -12,6 +12,7 @@ class NewPost(models.Model):
     date=models.DateTimeField(default=timezone.now)
     author=models.ForeignKey(User,on_delete=models.CASCADE)
     developer=models.CharField(max_length=200)
+    
 
     def __str__(self):
         return self.title
