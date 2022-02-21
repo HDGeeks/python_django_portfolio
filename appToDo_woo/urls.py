@@ -4,7 +4,7 @@ from appToDo_woo import views
 from .models import Todo
 
 #create your patterns here
-
+app_name = 'appToDo_woo'
 urlpatterns=[
     path('signUp/',views.signUpUser,name="signUp"),
     path('home/',views.home,name="home"),
