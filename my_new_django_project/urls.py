@@ -42,6 +42,7 @@ urlpatterns = [
     path('polls/',include('app_polls.urls')),
     path('passgen/',include('appPasswordGen.urls')),
     path('ToDo/',include('appToDo_woo.urls')),
+    path('scrap/',include('app_Web_Scrap.urls')),
     path('courses/',include('courses.urls')),
     path('admin/', admin.site.urls),
 ]

@@ -1,75 +1,99 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     {% load static %}
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'appToDo_woo/css/bootstrap.min.css' %}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'appToDo_woo/css/bootstrap.min.css' %}"
+    />
 
-    <link rel="icon" type="image/png"  href="{% static 'appToDo_woo/logo.png' %}">
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'appToDo_woo/logo.png' %}"
+    />
     <title>Todo Woo</title>
-</head>
-<body>
-
-
-<nav class="navbar navbar-expand-md navbar-light bg-warning">
-<div class="container">
-    <a class="navbar-brand" href="{% url 'home' %}">
-         <img src="{% static 'appToDo_woo/logo.png' %}" width="30" height="30" class="d-inline-block align-top">
-        <span>Todo Woo</span>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-    {% if user.is_authenticated %}
-        <ul class="navbar-nav mr-auto">
-
-                <li class="nav-item {{ home }}">
-                    <a class="nav-link" href="{% url 'home' %}"> Home </a>
-                </li>
-                <li class="nav-item {{ complete }}">
-                    <a class="nav-link" href="{% url 'home' %}"> Completed </a>
-                </li>
-                <li class="nav-item {{ create_new }}">
-                    <a class="nav-link" href="{% url 'create_new' %}"> Create new task </a>
-                </li>
-
-        </ul>
-    {% endif %}
-    <ul class="navbar-nav ml-auto">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light bg-warning">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img
+            src="{% static 'appToDo_woo/logo.png' %}"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+          />
+          <span>Todo Woo</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          {% if user.is_authenticated %}
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item {{ home }}">
+              <a class="nav-link" href="{% url 'home' %}"> Home </a>
+            </li>
+            <li class="nav-item {{ complete }}">
+              <a class="nav-link" href="{% url 'home' %}"> Completed </a>
+            </li>
+            <li class="nav-item {{ create_new }}">
+              <a class="nav-link" href="{% url 'create_new' %}">
+                Create new task
+              </a>
+            </li>
+          </ul>
+          {% endif %}
+          <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
-                    <form style='display: none;' method="POST" action="{% url 'logoutUser' %}">
-                        {% csrf_token %}
-                        <button id="signOutBtn" type="submit">Logout</button>
-                    </form>
-                </li>
+            <li class="nav-item">
+              <a href="#" onclick="$('#signOutBtn').click()" class="nav-link"
+                >Logout</a
+              >
+              <form
+                style="display: none"
+                method="POST"
+                action="{% url 'logoutUser' %}"
+              >
+                {% csrf_token %}
+                <button id="signOutBtn" type="submit">Logout</button>
+              </form>
+            </li>
             {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'signUp' %}">Sign Up</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'loginUser' %}">Login</a>
-                </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'signUp' %}">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'loginUser' %}">Login</a>
+            </li>
             {% endif %}
-        </ul>
-    </div>
-</div>
-</nav>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-<div class="container">
-{% block content %}{% endblock %}
-</div>
+    <div class="container">{% block content %}{% endblock %}</div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-
-<script src=" "></script>
-</body>
+    <script src=" "></script>
+  </body>
 </html>
