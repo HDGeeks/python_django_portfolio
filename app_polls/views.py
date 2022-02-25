@@ -6,7 +6,7 @@ from .models import Question,Choice
 from django.views import generic
 from django.utils import timezone
 
-# Create your views here.
+# Create your views here. 
 
 
 class IndexView(generic.ListView):
