@@ -41,7 +41,7 @@ urlpatterns = [
     path('blog/',include('blog.urls')),
     path('polls/',include('app_polls.urls')),
     path('passgen/',include('appPasswordGen.urls')),
-    path('ToDo/',include('appToDo_woo.urls')),
+    path('todo/',include('appToDo_woo.urls','appToDo_woo')),
     #path('scrap/',include('app_Web_Scrap.urls')),
     path('courses/',include('courses.urls')),
     path('admin/', admin.site.urls),

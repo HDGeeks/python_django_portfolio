@@ -25,7 +25,7 @@
   <body>
     <nav class="navbar navbar-expand-md navbar-light bg-warning">
       <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">
+        <a class="navbar-brand" href="{% url 'appToDo_woo:home' %}">
           <img
             src="{% static 'appToDo_woo/logo.png' %}"
             width="30"
@@ -49,13 +49,13 @@
           {% if user.is_authenticated %}
           <ul class="navbar-nav mr-auto">
             <li class="nav-item {{ home }}">
-              <a class="nav-link" href="{% url 'home' %}"> Home </a>
+              <a class="nav-link" href="{% url 'appToDo_woo:home' %}"> Home </a>
             </li>
             <li class="nav-item {{ complete }}">
-              <a class="nav-link" href="{% url 'home' %}"> Completed </a>
+              <a class="nav-link" href="{% url 'appToDo_woo:home' %}"> Completed </a>
             </li>
             <li class="nav-item {{ create_new }}">
-              <a class="nav-link" href="{% url 'create_new' %}">
+              <a class="nav-link" href="{% url 'appToDo_woo:create_new' %}">
                 Create new task
               </a>
             </li>
@@ -70,7 +70,7 @@
               <form
                 style="display: none"
                 method="POST"
-                action="{% url 'logoutUser' %}"
+                action="{% url 'appToDo_woo:logoutUser' %}"
               >
                 {% csrf_token %}
                 <button id="signOutBtn" type="submit">Logout</button>
@@ -78,10 +78,10 @@
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'signUp' %}">Sign Up</a>
+              <a class="nav-link" href="{% url 'appToDo_woo:signUp' %}">Sign Up</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'loginUser' %}">Login</a>
+              <a class="nav-link" href="{% url 'appToDo_woo:loginUser' %}">Login</a>
             </li>
             {% endif %}
           </ul>
