@@ -12,8 +12,9 @@ for article in soup.find_all('div', class_='article'):
 
     summary = article.p.text
     print(summary)
+
     print()
 
-    dict = [{" Header ": headline, " content ": " summary "}]
+    dict = {"Header": "headline", "content": "summary"}
 with open('scrapped_info.json', 'w') as dann:
     json.dump(dict, dann)
