@@ -10,10 +10,14 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+""" the start page """
 
 
 def start(request):
     return render(request, 'appToDo_woo/start.html')
+
+
+""" sign up new user by inheriting UserCreationForm from django """
 
 
 def signUpUser(request):
@@ -28,7 +32,7 @@ def signUpUser(request):
                                                     request.POST['password1'])
                     user.save()
                     login(request, user)
-                    return redirect('home')
+                    return redirect('currenttodos')
                 except IntegrityError:
                     return render(
                         request, 'appToDo_woo/signUp.html', {
@@ -42,6 +46,9 @@ def signUpUser(request):
                         'signUpForm': UserCreationForm(),
                         'error': 'password didnt match'
                     })
+
+
+""" Lgin by inheriting AuthenticationForm from django """
 
 
 def loginUser(request):
@@ -59,20 +66,29 @@ def loginUser(request):
             })
         else:
             login(request, user)
-            return redirect('home')
+            return redirect('currenttodos')
+
+
+""" LogOut user """
 
 
 def logoutUser(request):
     if request.method == 'POST':
         logout(request)
-        return redirect('home')
+        return redirect('start')
+
+
+""" Display existing to do lists in the db , but login is required """
 
 
 @login_required
-def home(request):
+def currenttodos(request):
     todo_lists = Todo.objects.filter(user=request.user,
                                      datecompleted__isnull=True)
     return render(request, 'appToDo_woo/home.html', {'todoLists': todo_lists})
+
+
+""" Add new to list """
 
 
 @login_required
@@ -86,7 +102,7 @@ def new_todo(request):
             new_to_do = new_todo_form.save(commit=False)
             new_to_do.user = request.user
             new_to_do.save()
-            return redirect('home')
+            return redirect('currenttodos')
 
         except ValueError:
             return render(
@@ -96,6 +112,9 @@ def new_todo(request):
                     'error':
                     'bad data type or exceeded the length specified of a specific field .'
                 })
+
+
+""" """
 
 
 @login_required
@@ -111,7 +130,7 @@ def todo_detail(request, pk_Todo):
         try:
             detailForm = create_new_form(request.POST, instance=to_detail)
             detailForm.save()
-            return redirect('home')
+            return redirect('currenttodos')
         except ValueError:
             return render(
                 request, 'appToDo_woo/detail.html', {
@@ -129,7 +148,7 @@ def delete_todo(request, pk_Todo):
     to_delete = get_object_or_404(Todo, pk=pk_Todo, user=request.user)
     if request.method == 'POST':
         to_delete.delete()
-        return redirect('home')
+        return redirect('currenttodos')
     else:
         detailForm = create_new_form(instance=to_delete)
         return render(request, 'appToDo_woo/detail.html', {
@@ -152,7 +171,7 @@ def completed(request, pk_Todo):
     if request.method == 'POST':
         to_complete.datecompleted = timezone.now()
         to_complete.save()
-        return redirect('home')
+        return redirect('currenttodos')
     else:
         detailForm = create_new_form(instance=to_complete)
         return render(request, 'appToDo_woo/detail.html', {
