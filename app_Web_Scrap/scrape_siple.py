@@ -15,6 +15,5 @@ for article in soup.find_all('div', class_='article'):
 
     print()
 
-    dict = {"Header": "headline", "content": "summary"}
 with open('scrapped_info.json', 'w') as dann:
-    json.dump(dict, dann)
+    json.dump(article, dann, indent=2)
