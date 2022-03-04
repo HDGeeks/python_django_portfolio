@@ -8,6 +8,7 @@ from django.contrib.auth import login, logout, authenticate
 from .models import create_new_form, Todo
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+import pdb
 
 # Create your views here.
 """ the start page """
@@ -21,6 +22,7 @@ def start(request):
 
 
 def signUpUser(request):
+
     if request.method == 'GET':
         return render(request, 'appToDo_woo/signUp.html',
                       {'signUpForm': UserCreationForm()})
