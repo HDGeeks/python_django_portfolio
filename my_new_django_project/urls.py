@@ -26,7 +26,7 @@ urlpatterns = [
     path('passgen/', include('appPasswordGen.urls')),
     path('todo/', include('appToDo_woo.urls')),
     path('courses/', include('courses.urls')),
-    path('users_app/', include('users_app.urls')),
+    path('users/', include('users_app.urls')),
     path('admin/', admin.site.urls),
 ]
 
