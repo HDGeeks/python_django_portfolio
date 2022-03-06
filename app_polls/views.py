@@ -1,12 +1,13 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.http import HttpResponse ,Http404,HttpResponseRedirect
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
-from .models import Question,Choice
+from .models import Question, Choice
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth.models import User
 
-# Create your views here. 
+# Create your views here.
 
 
 class IndexView(generic.ListView):
@@ -15,7 +16,8 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Question.objects.filter(pub_date__lte=timezone.now).order_by('-pub_date')
+        return Question.objects.filter(
+            pub_date__lte=timezone.now).order_by('-pub_date')
 
 
 class DetailView(generic.DetailView):
@@ -26,12 +28,10 @@ class DetailView(generic.DetailView):
         """Return the last five published questions."""
         return Question.objects.filter(pub_date__lte=timezone.now)
 
-   
 
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'app_polls/results.html'
-
 
 
 def vote(request, question_id):
@@ -50,7 +50,5 @@ def vote(request, question_id):
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        return HttpResponseRedirect(reverse('app_polls:results', args=(question.id,)))
-
-
-
+        return HttpResponseRedirect(
+            reverse('app_polls:results', args=(question.id, )))

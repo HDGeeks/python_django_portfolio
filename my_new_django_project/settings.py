@@ -135,7 +135,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-LOGIN_REDIRECT_URL = 'blog_home'
+LOGIN_REDIRECT_URL = 'all_start'
 LOGIN_URL = '/login'
 
 # Default primary key field type

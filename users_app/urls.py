@@ -2,8 +2,10 @@ from django.urls import URLPattern, path
 from . import views as users_view
 from django.contrib.auth import views as auth_view
 
+app_name = 'users_app'
 urlpatterns = [
     path('', users_view.register, name='register'),
+    path('start', users_view.start, name='all_start'),
     path('profile/', users_view.profile, name='profile'),
     path('login/',
          auth_view.LoginView.as_view(template_name='users_app/login.html'),

@@ -1,10 +1,10 @@
 import django
 from django.urls import URLPattern, path
-from .import views
+from . import views
 
-urlpatterns=[
-    path('home/',views.home,name="home"),
-    path('password/',views.password,name="password"),
-    path('about/',views.about,name="about")
-
- ]
+app_name = 'appPasswordGen'
+urlpatterns = [
+    path('home/', views.home, name="home"),
+    path('password/', views.password, name="password"),
+    path('about/', views.about, name="about")
+]
