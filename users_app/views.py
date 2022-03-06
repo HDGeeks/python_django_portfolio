@@ -6,17 +6,18 @@ from .add_email_file import UserRegisterForm
 
 def register(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
+        new_user_form = UserRegisterForm(request.POST)
+        if new_user_form.is_valid():
+            new_user_form.save()
+            username = new_user_form.cleaned_data.get('username')
             messages.success(
                 request,
                 f'Your account has been created! You are now able to log in')
             return redirect('login')
     else:
-        form = UserRegisterForm()
-    return render(request, 'users_app/register.html', {'form': form})
+        new_user_form = UserRegisterForm()
+    return render(request, 'users_app/register.html',
+                  {'create_new_user_form': new_user_form})
 
 
 @login_required
