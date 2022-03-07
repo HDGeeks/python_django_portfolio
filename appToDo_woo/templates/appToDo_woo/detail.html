@@ -33,12 +33,12 @@
         </div>
     </div>
     {% if deta.datecompleted is None %}
-        <form style='display: none;' method="POST" action="{% url 'complete' deta.id %}">
+        <form style='display: none;' method="POST" action="{% url 'appToDo_woo:complete' deta.id %}">
             {% csrf_token %}
             <button id="complete" type="submit">Complete</button>
         </form>
     {% endif %}
-    <form style='display: none;' method="POST" action="{% url 'delete' deta.id %}">
+    <form style='display: none;' method="POST" action="{% url 'appToDo_woo:delete' deta.id %}">
         {% csrf_token %}
         <button id="delete" type="submit">Delete</button>
     </form>

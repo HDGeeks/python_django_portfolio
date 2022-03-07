@@ -68,7 +68,7 @@ def loginUser(request):
             })
         else:
             login(request, user)
-            return redirect('currenttodos')
+            return redirect('appToDo_woo:currenttodos')
 
 
 """ LogOut user """
@@ -104,7 +104,7 @@ def new_todo(request):
             new_to_do = new_todo_form.save(commit=False)
             new_to_do.user = request.user
             new_to_do.save()
-            return redirect('currenttodos')
+            return redirect('appToDo_woo:currenttodos')
 
         except ValueError:
             return render(
@@ -132,7 +132,7 @@ def todo_detail(request, pk_Todo):
         try:
             detailForm = create_new_form(request.POST, instance=to_detail)
             detailForm.save()
-            return redirect('currenttodos')
+            return redirect('appToDo_woo:currenttodos')
         except ValueError:
             return render(
                 request, 'appToDo_woo/detail.html', {
@@ -150,7 +150,7 @@ def delete_todo(request, pk_Todo):
     to_delete = get_object_or_404(Todo, pk=pk_Todo, user=request.user)
     if request.method == 'POST':
         to_delete.delete()
-        return redirect('currenttodos')
+        return redirect('appToDo_woo:currenttodos')
     else:
         detailForm = create_new_form(instance=to_delete)
         return render(request, 'appToDo_woo/detail.html', {
@@ -173,7 +173,7 @@ def completed(request, pk_Todo):
     if request.method == 'POST':
         to_complete.datecompleted = timezone.now()
         to_complete.save()
-        return redirect('currenttodos')
+        return redirect('appToDo_woo:currenttodos')
     else:
         detailForm = create_new_form(instance=to_complete)
         return render(request, 'appToDo_woo/detail.html', {
