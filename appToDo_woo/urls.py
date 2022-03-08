@@ -7,9 +7,11 @@ from .models import Todo
 app_name = 'appToDo_woo'
 urlpatterns = [
     #Auth
-    path('signUp/', views.signUpUser, name="signUp"),
-    path('logout/', views.logoutUser, name="logoutUser"),
-    path('login/', views.loginUser, name="loginUser"),
+
+    #path('signUp/', views.signUpUser, name="signUp"),
+    #path('logout/', views.logoutUser, name="logoutUser"),
+    #path('login/', views.loginUser, name="loginUser"),
+
     #to-do
     path('', views.start, name="start"),
     path('create/', views.new_todo, name="create_new"),

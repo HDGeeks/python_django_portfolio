@@ -1,7 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout, authenticate
 from .users_forms import UserRegisterForm
+"""
+Create new user using the register function ,
+If and only method is POST ,
+if not , just return the form .
+BTW , we are using UserRegisterForm inherited from users_forms
+bcz i wanted to add an email field to the field of 
+UserCreationForm . wink wink .
+
+"""
 
 
 def register(request):
@@ -13,7 +23,7 @@ def register(request):
             messages.success(
                 request,
                 f'Your account has been created! You are now able to log in')
-            return redirect('login')
+            return redirect('all_start')
     else:
         new_user_form = UserRegisterForm()
     return render(request, 'users_app/register.html',

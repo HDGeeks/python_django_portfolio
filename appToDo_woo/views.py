@@ -2,85 +2,27 @@ from time import timezone
 from xmlrpc.client import NOT_WELLFORMED_ERROR
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.db import IntegrityError
-from django.contrib.auth import login, logout, authenticate
 from .models import create_new_form, Todo
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-import pdb
 
 # Create your views here.
-""" the start page """
+""" 
+the start page
+"""
 
 
 def start(request):
     return render(request, 'appToDo_woo/start.html')
 
 
-""" sign up new user by inheriting UserCreationForm from django """
+""" 
+Display existing to do lists in the db ,
+but login is required 
+We could have used class based views provided by django ,
+but , we are using functions for practice .
 
-
-def signUpUser(request):
-
-    if request.method == 'GET':
-        return render(request, 'appToDo_woo/signUp.html',
-                      {'signUpForm': UserCreationForm()})
-    else:
-        if request.method == 'POST':
-            if request.POST['password1'] == request.POST['password2']:
-                try:
-                    user = User.objects.create_user(request.POST['username'],
-                                                    request.POST['password1'])
-                    user.save()
-                    login(request, user)
-                    return redirect('currenttodos')
-                except IntegrityError:
-                    return render(
-                        request, 'appToDo_woo/signUp.html', {
-                            'signUpForm': UserCreationForm(),
-                            'error': 'username already exists'
-                        })
-            else:
-                # let the user now either the username or password is wrong
-                return render(
-                    request, 'appToDo_woo/signUp.html', {
-                        'signUpForm': UserCreationForm(),
-                        'error': 'password didnt match'
-                    })
-
-
-""" Lgin by inheriting AuthenticationForm from django """
-
-
-def loginUser(request):
-    if request.method == 'GET':
-        return render(request, 'appToDo_woo/userlogin.html',
-                      {'loginForm': AuthenticationForm()})
-    else:
-        user = authenticate(request,
-                            username=request.POST['username'],
-                            password=request.POST['password'])
-        if user is None:
-            return render(request, 'appToDo_woo/userlogin.html', {
-                'loginForm': AuthenticationForm(),
-                'error': 'password didnt match'
-            })
-        else:
-            login(request, user)
-            return redirect('appToDo_woo:currenttodos')
-
-
-""" LogOut user """
-
-
-def logoutUser(request):
-    if request.method == 'POST':
-        logout(request)
-        return redirect('start')
-
-
-""" Display existing to do lists in the db , but login is required """
+"""
 
 
 @login_required
@@ -90,7 +32,9 @@ def currenttodos(request):
     return render(request, 'appToDo_woo/home.html', {'todoLists': todo_lists})
 
 
-""" Add new to list """
+"""
+Add new to list
+"""
 
 
 @login_required
@@ -114,9 +58,6 @@ def new_todo(request):
                     'error':
                     'bad data type or exceeded the length specified of a specific field .'
                 })
-
-
-""" """
 
 
 @login_required
