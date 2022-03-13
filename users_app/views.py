@@ -23,7 +23,7 @@ def register(request):
             messages.success(
                 request,
                 f'Your account has been created! You are now able to log in')
-            return redirect('all_start')
+            return redirect('users_app:all_start')
     else:
         new_user_form = UserRegisterForm()
     return render(request, 'users_app/register.html',

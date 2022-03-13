@@ -60,6 +60,11 @@ def new_todo(request):
                 })
 
 
+"""
+Todo detail , click on it display 
+"""
+
+
 @login_required
 def todo_detail(request, pk_Todo):
     to_detail = get_object_or_404(Todo, pk=pk_Todo, user=request.user)
